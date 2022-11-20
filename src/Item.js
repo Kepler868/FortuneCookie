@@ -13,6 +13,7 @@ export default function Item(props) {
   const [textError, setTextError] = useState("")
   const [prediction, setPrediction] = useState("")
   const [loader, setLoader] = useState(false)
+
   const { isLogined, name, desc, image, value, contract, type } = props
 
   async function transferMoney(price) {
@@ -33,7 +34,12 @@ export default function Item(props) {
         setTextError("Not enough tokens!")
       } else if (error.code == "ACTION_REJECTED"){
         setModalError(true);
-        setTextError(" Why did you cancel the transaction? You are one step away from a fateful prediction, sign a deal!")
+        setTextError("Why did you cancel the transaction? You are one step away from a fateful prediction, sign a deal!")
+        console.log(error)
+      }
+      else if (error.code == "NETWORK_ERROR"){
+        setModalError(true);
+        setTextError("Wrong network selected. Please select a goerli testnet")
         console.log(error)
       }
       else {
@@ -41,6 +47,7 @@ export default function Item(props) {
         setTextError("Something went wrong! Try again!")
         console.log(error)
       }
+      
     }
     finally {
       setLoader(false)
@@ -77,9 +84,11 @@ export default function Item(props) {
       <div className="price">
         {isLogined ? (
           <button
+            disabled={loader}
             onClick={() => {
               setLoader(true)
               transferMoney(value)
+
             }}
             className="cookie-button"
           >
