@@ -28,7 +28,7 @@ export default function Item(props) {
         }
       
     } catch (error) {
-      if (error.code == "UNPREDICTABLE_GAS_LIMIT") {
+      if (error.code == "INSUFFICIENT_FUNDS") {
         setModalError(true);
         setTextError("Not enough tokens!")
       } else {
