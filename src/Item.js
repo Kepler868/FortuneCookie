@@ -38,7 +38,7 @@ export default function Item(props) {
       }
       else if (error.code == "NETWORK_ERROR"){
         setModalError(true);
-        setTextError("Wrong network selected. Please select a goerli testnet")
+        setTextError("Wrong network selected. Please select a Goerli Testnet")
         console.log(error)
       }
       else {
