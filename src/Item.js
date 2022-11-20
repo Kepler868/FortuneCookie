@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import uuid from 'react-uuid'
 import Modal from './modal/Modal.js'
-import ModalPrediction from './modal/ModalWithButton.js'
 import { ethers } from 'ethers'
 import { predictions } from './pred/pred'
 import ModalWithButton from './modal/ModalWithButton.js'
