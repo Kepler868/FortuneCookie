@@ -31,7 +31,12 @@ export default function Item(props) {
       if (error.code == "INSUFFICIENT_FUNDS") {
         setModalError(true);
         setTextError("Not enough tokens!")
-      } else {
+      } else if (error.code == "ACTION_REJECTED"){
+        setModalError(true);
+        setTextError(" Why did you cancel the transaction? You are one step away from a fateful prediction, sign a deal!")
+        console.log(error)
+      }
+      else {
         setModalError(true);
         setTextError("Something went wrong! Try again!")
         console.log(error)
