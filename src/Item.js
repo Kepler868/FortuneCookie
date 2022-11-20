@@ -32,7 +32,9 @@ export default function Item(props) {
         setModalError(true);
         setTextError("Not enough tokens!")
       } else {
+        setModalError(true);
         setTextError("Something went wrong! Try again!")
+        console.log(error)
       }
     }
     finally {
