@@ -15,6 +15,21 @@ export default function Item(props) {
 
   const { isLogined, name, desc, image, value, contract, type } = props
 
+  const changeNetwork = async () => {
+    if (window.ethereum) {
+      try {
+        await window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+          params: [{ chainId: ethers.utils.hexValue(5)}],
+        });
+        }
+      catch (error) {
+        console.error(error);
+      }
+    }
+  }
+
+
   async function transferMoney(price) {
     try {
       const tx = await contract.buyCookie({
@@ -126,10 +141,15 @@ export default function Item(props) {
       </ModalWithButton>
       <Modal className="modal__error" active={modalError} setActive={setModalError} setLoader={setLoader} >
         <p className='cookie'>{textError}</p>
-        <button className="meta" onClick={() => {
+        {textError !== "Wrong network selected. Please select a goerli testnet" ? (<button className="meta" onClick={() => {
                 setModalError(false)
                 setLoader(false)
-            }}>So sad :(</button>
+            }}>So sad :(</button>) :
+            ((<button className="meta" onClick={() => {
+              changeNetwork()
+              setModalError(false)
+              setLoader(false)
+          }}>Change network</button>))}
       </Modal>
     </div>
   )

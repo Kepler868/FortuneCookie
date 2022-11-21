@@ -78,6 +78,10 @@ function App() {
         ],
         signer,
       )
+      await window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+          params: [{ chainId: ethers.utils.hexValue(5)}],
+        });
       setContract(contractCookie)
       setCurrentAccount(accounts[0])
       setIsLogined(true)
