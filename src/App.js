@@ -10,17 +10,13 @@ function App() {
   const { ethereum } = window
   const [contract, setContract] = useState(null)
 
-  const handleLoginClick = async () => {
-    if (!ethereum) {
-      alert('Установите метамаск!')
-    }
-    try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum)
+  const metamaskLogin = async () => {
+    try {const provider = new ethers.providers.Web3Provider(window.ethereum)
       await provider.send('eth_requestAccounts', [])
       const signer = provider.getSigner()
       const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
       const contractCookie = await new ethers.Contract(
-        '0x756D86474ec380e87EbBC417C0B37d18558E1d17',
+        '0x5FbDB2315678afecb367f032d93F642f64180aa3',
         [
           {
             inputs: [],
@@ -81,6 +77,28 @@ function App() {
       setContract(contractCookie)
       setCurrentAccount(accounts[0])
       setIsLogined(true)
+    } catch(error) {
+      console.error(error)
+    }
+  }
+    
+
+  const handleLoginClick = async () => {
+    if (!ethereum) {
+      alert('Установите метамаск!')
+    }
+    try {
+      const chainId  = await ethers.providers.getNetwork()
+      if (chainId == 5) {
+        metamaskLogin()
+      }
+        else {
+          await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+              params: [{ chainId: ethers.utils.hexValue(5)}],
+            })
+            metamaskLogin() 
+            }
     } catch (error) {
       console.error(error)
     }
