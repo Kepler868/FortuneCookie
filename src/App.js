@@ -16,7 +16,7 @@ function App() {
       const signer = provider.getSigner()
       const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
       const contractCookie = await new ethers.Contract(
-        '0x5FbDB2315678afecb367f032d93F642f64180aa3',
+        '0x756D86474ec380e87EbBC417C0B37d18558E1d17',
         [
           {
             inputs: [],
