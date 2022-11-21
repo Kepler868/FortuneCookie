@@ -5,6 +5,7 @@ import { ethers } from 'ethers'
 import { predictions } from './pred/pred'
 import ModalWithButton from './modal/ModalWithButton.js'
 
+
 export default function Item(props) {
   const [modalActive, setModalActive] = useState(false)
   const [modalPrediction, setModalPrediction] = useState(false)
@@ -14,6 +15,7 @@ export default function Item(props) {
   const [loader, setLoader] = useState(false)
 
   const { isLogined, name, desc, image, value, contract, type } = props
+
 
   const changeNetwork = async () => {
     if (window.ethereum) {
@@ -28,7 +30,6 @@ export default function Item(props) {
       }
     }
   }
-
 
   async function transferMoney(price) {
     try {
@@ -53,7 +54,7 @@ export default function Item(props) {
       }
       else if (error.code == "NETWORK_ERROR"){
         setModalError(true);
-        setTextError("Wrong network selected. Please select a Goerli Testnet")
+        setTextError("Wrong network selected. Please select a goerli testnet")
         console.log(error)
       }
       else {
@@ -140,7 +141,7 @@ export default function Item(props) {
         <p className="modal__words">{prediction}</p>
       </ModalWithButton>
       <Modal className="modal__error" active={modalError} setActive={setModalError} setLoader={setLoader} >
-        <p className='cookie'>{textError}</p>
+        <p className='modal__words'>{textError}</p>
         {textError !== "Wrong network selected. Please select a goerli testnet" ? (<button className="meta" onClick={() => {
                 setModalError(false)
                 setLoader(false)
